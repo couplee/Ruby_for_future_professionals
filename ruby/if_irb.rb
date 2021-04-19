@@ -29,3 +29,24 @@ greeting  #=> "ciao"(greetingって入力する度に"ciao"が出力されるよ
           # 🔵 if文の修飾子（文の後ろにif文を置く）
 
 毎月1日だけポイント5倍にする場合の普通のif文
+point = 7
+day = 1
+if day = 1
+  point *= 5
+end
+point  #=> 35
+
+上のif文のコードを修飾子にする場合
+point = 7
+day = 1
+point *= 5 if day == 1
+point  #=> 35
+
+
+        # 🔵 if文にthenを挿入すると処理を1行に押し込めることもできる(使用頻度はあまり高くない)
+country = "italy"
+if country == "japan" then "こんにちは"
+elsif country == "us" then "Hello"
+elsif country == "italy" then "ciao"
+else "???"
+end  #=> "ciao"
