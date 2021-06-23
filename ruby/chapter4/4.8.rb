@@ -363,3 +363,59 @@ a  #=> [10, 20, 30]
 
   while文もuntil文も、条件式を間違えたり、いつまでたっても条件式の結果が変わらないようなコードを書いたりすると無限ループしてしまう。
   while分やuntil文を書く場合、無限ループを発生させないように注意する
+
+
+
+            💠 4.9.5 for文
+  配列やハッシュはfor文で繰り返し処理することもできる
+for 変数 in 配列やハッシュ
+  繰り返し処理
+end
+
+  上の構文では「配列やハッシュ」と書いてるけど、厳密にはeachメソッドを定義してるオブジェクトであれば何でもいける。
+    ex) 配列の中身を順番に加算していくコード例
+numbers = [1, 2, 3, 4]
+sum = 0
+for n in numbers
+  sum += n
+end
+sum  #=> 10
+
+    ex) doを入れて1行で書くこともできる
+sum = 0
+for n in numbers do sum += n end
+sum  #=> 10
+
+  だが上のfor文は実質的にはeachメソッドを使った下記のコードとほぼ同じ。
+  Rubyのプログラムでは通常、for文よりもeachメソッドを使う
+numbers = [1, 2, 3, 4]
+sum = 0
+numbers.each do |n|
+  sum += n
+end
+sum  #=> 10
+
+  厳密には全く同じというわけではなくて、for文の場合は配列の要素を受け取る変数や、for文の中で作成したローカル変数がfor文の外でも使えるという違いがある
+  (下記のコードをirbで実行する時は、nやsum_valueがローカル変数としてすでに宣言されてると意図した結果にならないから、一回irbを再起動する)
+numbers = [1, 2, 3, 4]
+sum = 0
+numbers.each do |n|
+  sum_value = n.even? ? n * 10 : n
+  sum += sum_value
+end
+
+# ブロック引数やブロック内で作成した変数はブロックの外では参照できない
+n  #=> NameError
+sum_value  #=> NameError
+
+sum = 0
+for n in nunbers
+  sum_value = n.even? ? n * 10 : n
+  sum += sum_value
+end
+
+# for文の中で作成された変数はfor文の外でも参照できる
+n  #=> 4
+sum_value  #=> 40
+
+  このような微妙な違いはあるが、Rubyではfor文ではなくeachメソッドやmapメソッドといった繰り返し処理用のメソッドを使う場合がほとんどである
